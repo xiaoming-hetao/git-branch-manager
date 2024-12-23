@@ -1,0 +1,161 @@
+{
+  "name": "git-branch-manager",
+  "displayName": "Git Branch Manager",
+  "description": "Git分支批量管理工具,支持按类型筛选、批量删除等功能",
+  "version": "1.0.0",
+  "publisher": "你的发布者ID",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaoming-hetao/git-branch-manager"
+  },
+  "keywords": [
+    "git",
+    "branch",
+    "manager",
+    "批量删除",
+    "分支管理"
+  ],
+  "categories": [
+    "Other",
+    "SCM Providers"
+  ],
+  "icon": "resources/branch.svg",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "activationEvents": [
+    "onStartGitBranchManager",
+    "onView:gitBranchExplorer",
+    "onCommand:git-branch-manager.refreshBranches",
+    "onCommand:git-branch-manager.deleteBranch"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gitBranchManager",
+          "title": "Git Branch Manager",
+          "icon": "resources/branch.svg"
+        }
+      ]
+    },
+    "views": {
+      "gitBranchManager": [
+        {
+          "id": "gitBranchManager",
+          "name": "Git 分支管理器",
+          "icon": "resources/branch.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "gitBranchManager.deleteBranches",
+        "title": "删除选中的分支",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "gitBranchManager.renameBranch",
+        "title": "重命名分支",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "gitBranchManager.selectAll",
+        "title": "全选分支",
+        "icon": "$(check-all)"
+      },
+      {
+        "command": "gitBranchManager.selectDevelop",
+        "title": "选择develop分支",
+        "icon": "$(versions)"
+      },
+      {
+        "command": "gitBranchManager.selectFeature",
+        "title": "选择feature分支",
+        "icon": "$(package)"
+      },
+      {
+        "command": "gitBranchManager.selectHotfix",
+        "title": "选择hotfix分支",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "gitBranchManager.selectRelease",
+        "title": "选择release分支",
+        "icon": "$(tag)"
+      },
+      {
+        "command": "gitBranchManager.copyBranchName",
+        "title": "复制分支名",
+        "icon": "$(copy)"
+      }
+    ],
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "gitBranchManager.renameBranch",
+          "when": "view == gitBranchManager && (viewItem == branch || viewItem == currentBranch)",
+          "group": "inline"
+        },
+        {
+          "command": "gitBranchManager.copyBranchName",
+          "when": "view == gitBranchManager",
+          "group": "inline"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "gitBranchManager.selectAll",
+          "when": "view == gitBranchManager",
+          "group": "navigation@1"
+        },
+        {
+          "command": "gitBranchManager.selectDevelop",
+          "when": "view == gitBranchManager",
+          "group": "navigation@2"
+        },
+        {
+          "command": "gitBranchManager.selectFeature",
+          "when": "view == gitBranchManager",
+          "group": "navigation@3"
+        },
+        {
+          "command": "gitBranchManager.selectHotfix",
+          "when": "view == gitBranchManager",
+          "group": "navigation@4"
+        },
+        {
+          "command": "gitBranchManager.selectRelease",
+          "when": "view == gitBranchManager",
+          "group": "navigation@5"
+        },
+        {
+          "command": "gitBranchManager.deleteBranches",
+          "when": "view == gitBranchManager",
+          "group": "navigation@6"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.96.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^9.16.0",
+    "typescript": "^5.7.2",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
